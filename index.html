@@ -46,7 +46,7 @@
                 for (var i = 0; i < markers_array.length; i++) {
                         var popup = L.popup();
                         if (markers_array[i].content){
-                            //console.log(markers_array[i].content.$t)
+                            console.log(markers_array[i].content.$t)
                             //the content is in a string as a list, so you need to split it and save it as an array
                             var contentStr = markers_array[i].content.$t
                             var contentArray = contentStr.split(",");

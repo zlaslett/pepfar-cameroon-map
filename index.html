@@ -67,14 +67,14 @@
                                 //console.log('ok');
                                 var location = contentArray[11].slice(contentArray[11].indexOf(":")+2);
                             }
-                            if (typeof contentArray[15] !== 'undefined') {
-                                if (contentArray[15].slice(0, contentArray[15].indexOf(":")).indexOf('latitude') > -1){
-                                    var lat = Number(contentArray[15].slice(contentArray[15].indexOf(":")+1));
+                            if (typeof contentArray[16] !== 'undefined') {
+                                if (contentArray[16].slice(0, contentArray[16].indexOf(":")).indexOf('latitude') > -1){
+                                    var lat = Number(contentArray[16].slice(contentArray[16].indexOf(":")+1));
                                 }
                             }
-                            if (typeof contentArray[16] !== 'undefined') {
-                                if (contentArray[16].slice(0, contentArray[16].indexOf(":")).indexOf('longitude') > -1){
-                                    var lon = Number(contentArray[16].slice(contentArray[16].indexOf(":")+1));
+                            if (typeof contentArray[17] !== 'undefined') {
+                                if (contentArray[17].slice(0, contentArray[17].indexOf(":")).indexOf('longitude') > -1){
+                                    var lon = Number(contentArray[17].slice(contentArray[17].indexOf(":")+1));
                                 }
                             }
                         }

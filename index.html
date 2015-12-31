@@ -24,7 +24,6 @@
     L.mapbox.accessToken = 'pk.eyJ1IjoiaGl1IiwiYSI6InJWNGZJSzgifQ.xK1ndT3W8XL9lwVZrT6jvQ';
     var map = L.mapbox.map('map', 'mapbox.streets')
         .setView([6, 14], 6);
-
     /* test code 
             $.getJSON("https://spreadsheets.google.com/feeds/list/1rMtXTBsCB98qFh82EoxiCU57REhN7kAGw_HpxIrFnqw/1/public/basic?gid=61582386&hl=en_US&alt=json", function(data) {
                 //uses getObjects function, which parses geojson for objects that match a certain key:value
@@ -32,59 +31,50 @@
                 var entriesObj = data.feed.entry;
                 
                 //console.log(entriesObj[1].content);
-
                 for (i = 0; i < entriesObj.length; i++) {
                     console.log(entriesObj[i].content);
                 }
-
             });
     */
-
     //http://stackoverflow.com/questions/24531351/retrieve-google-spreadsheet-worksheet-json
     $(document).ready(function() {
         $.getJSON("https://spreadsheets.google.com/feeds/list/1Zy0PLxMC3GToIxDw2DxFEkbrWXOD-omsKo3fOmMsuCM/1/public/basic?gid=61582386&hl=en_US&alt=json", function(data) {
-
                 var markers_array = data.feed.entry;
-
                 //console.log('array length');
                 //console.log(markers_array.length);
-
                 var markers = new L.MarkerClusterGroup();
-
                 for (var i = 0; i < markers_array.length; i++) {
-
                         var popup = L.popup();
-
                         if (markers_array[i].content){
                             //console.log(markers_array[i].content.$t)
                             //the content is in a string as a list, so you need to split it and save it as an array
                             var contentStr = markers_array[i].content.$t
                             var contentArray = contentStr.split(",");
                             console.log(contentArray);
-                            if (contentArray[0].slice(0, contentArray[0].indexOf(":")).indexOf('uid') > -1){
+                            if (contentArray[3].slice(0, contentArray[3].indexOf(":")).indexOf('tweetid') > -1){
                                 //console.log('ok');
-                                var uid = contentArray[0].slice(contentArray[0].indexOf(":")+2);
+                                var tweetid = contentArray[3].slice(contentArray[3].indexOf(":")+2);
                             }
                             //console.log(contentArray[4].slice(0, contentArray[4].indexOf(":")))
                             //this line checks of the element exists, indexOf will return a -1 if the list does not contain the element
-                            if (contentArray[4].slice(0, contentArray[4].indexOf(":")).indexOf('healthdistrict') > -1){
+                            if (contentArray[4].slice(0, contentArray[4].indexOf(":")).indexOf('app') > -1){
                                 //you need to add plus 2 to the index so you don't capture the colon and the space in the value
-                                var healthDistrict = contentArray[4].slice(contentArray[4].indexOf(":")+2);
+                                var app = contentArray[4].slice(contentArray[4].indexOf(":")+2);
                                 //console.log('health dis: ');
                                 //console.log(healthDistrict);
                             }
-                            if (contentArray[5].slice(0, contentArray[5].indexOf(":")).indexOf('sitename') > -1){
+                            if (contentArray[11].slice(0, contentArray[11].indexOf(":")).indexOf('location') > -1){
                                 //console.log('ok');
-                                var siteName = contentArray[5].slice(contentArray[5].indexOf(":")+2);
+                                var location = contentArray[11].slice(contentArray[11].indexOf(":")+2);
                             }
-                            if (typeof contentArray[6] !== 'undefined') {
-                                if (contentArray[6].slice(0, contentArray[6].indexOf(":")).indexOf('latitude') > -1){
-                                    var lat = Number(contentArray[6].slice(contentArray[6].indexOf(":")+1));
+                            if (typeof contentArray[15] !== 'undefined') {
+                                if (contentArray[15].slice(0, contentArray[15].indexOf(":")).indexOf('latitude') > -1){
+                                    var lat = Number(contentArray[15].slice(contentArray[15].indexOf(":")+1));
                                 }
                             }
-                            if (typeof contentArray[7] !== 'undefined') {
-                                if (contentArray[7].slice(0, contentArray[7].indexOf(":")).indexOf('longitude') > -1){
-                                    var lon = Number(contentArray[7].slice(contentArray[7].indexOf(":")+1));
+                            if (typeof contentArray[16] !== 'undefined') {
+                                if (contentArray[16].slice(0, contentArray[16].indexOf(":")).indexOf('longitude') > -1){
+                                    var lon = Number(contentArray[16].slice(contentArray[16].indexOf(":")+1));
                                 }
                             }
                         }
@@ -95,7 +85,7 @@
                             });
                             //console.log('popupText')
                             //console.log(popupText)
-                            marker.bindPopup(healthDistrict + '<br>' + 'site name: ' + siteName + '<br>' + 'uid: ' + uid);
+                            marker.bindPopup(app + '<br>' + 'location: ' + app + '<br>' + 'tweetid: ' + tweetid);
                             markers.addLayer(marker);
                         }
                 }
@@ -103,7 +93,6 @@
                 map.addLayer(markers);
          });
     });
-
     </script>
 </body>
 </html>
